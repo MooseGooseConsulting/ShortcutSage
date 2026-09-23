@@ -8,7 +8,7 @@ on:
 
 jobs:
   test:
-    runs-on: ubuntu-latest
+    runs-on: ${{ (github.event.pull_request.head.repo.fork || vars.CI_FORCE_HOSTED == 'true') && 'ubuntu-latest' || 'moosegoose-linux' }}
     strategy:
       matrix:
         python-version: ['3.11', '3.12']
@@ -78,7 +78,7 @@ jobs:
           fail_ci_if_error: false
 
   lint:
-    runs-on: ubuntu-latest
+    runs-on: ${{ (github.event.pull_request.head.repo.fork || vars.CI_FORCE_HOSTED == 'true') && 'ubuntu-latest' || 'moosegoose-linux' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4

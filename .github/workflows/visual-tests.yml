@@ -26,7 +26,7 @@ on:
 jobs:
   visual-test:
     name: Capture & Validate Screenshots
-    runs-on: ubuntu-latest
+    runs-on: ${{ (github.event.pull_request.head.repo.fork || vars.CI_FORCE_HOSTED == 'true') && 'ubuntu-latest' || 'moosegoose-linux' }}
 
     steps:
       - name: Checkout code
@@ -224,7 +224,7 @@ jobs:
   # Run standard overlay unit tests
   overlay-unit-tests:
     name: Overlay Unit Tests
-    runs-on: ubuntu-latest
+    runs-on: ${{ (github.event.pull_request.head.repo.fork || vars.CI_FORCE_HOSTED == 'true') && 'ubuntu-latest' || 'moosegoose-linux' }}
 
     steps:
       - name: Checkout code
